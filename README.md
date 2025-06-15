@@ -1,6 +1,6 @@
 # 🚴‍♂️ London Bike-Sharing Demand Prediction using Machine Learning
 
-This repository contains an individual machine learning project focused on predicting demand for London's Santander bike-sharing system using real-world environmental and temporal data. The goal is to build regression models to estimate hourly bike demand and identify the key features influencing usage patterns.
+This repository contains a machine learning project focused on predicting demand for London's Santander bike-sharing system using real-world environmental and temporal data. The goal is to build regression models to estimate hourly bike demand and identify the key features influencing usage patterns.
 
 ---
 
