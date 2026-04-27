@@ -1,21 +1,22 @@
 # 🚴‍♂️ London Bike-Sharing Demand Prediction using Machine Learning
 
-This repository contains a machine learning project focused on predicting demand for London's Santander bike-sharing system using real-world environmental and temporal data. The goal is to build regression models to estimate hourly bike demand and identify the key features influencing usage patterns.
+[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://streamlit.io/)
+[![Scikit-Learn](https://img.shields.io/badge/scikit--learn-0.24%2B-orange.svg)](https://scikit-learn.org/)
+
+This repository contains an End-to-End machine learning project focused on predicting demand for London's Santander bike-sharing system using real-world environmental and temporal data. It features a modular MLOps pipeline, centralized YAML configuration, and an interactive **Premium Streamlit Dashboard** for real-time predictions.
 
 ---
 
-## 📌 Project Overview
+## 📌 Project Overview & Goal
 
-Bike-sharing systems offer a sustainable and efficient transportation alternative in modern cities. Santander Cycles, London’s bike-sharing scheme, has become an integral part of the city’s transport network. However, operators still face challenges in predicting demand and allocating bikes efficiently. This project aims to apply machine learning to forecast hourly bike demand based on weather and time-related factors, ultimately helping improve operational decisions and service quality.
+Bike-sharing systems offer a sustainable and efficient transportation alternative in modern cities. However, operators still face challenges in predicting demand and allocating bikes efficiently. 
 
----
-
-## 🎯 Project Goal
-
+**Project Goals:**
 - Analyze factors affecting hourly demand for bike rentals in London
-- Build predictive models to forecast bike usage
+- Build predictive regression models to forecast bike usage
 - Identify the most influential features affecting demand
-- Recommend the most effective model for deployment
+- Deploy the most effective model into an interactive Web Application
 - Derive actionable insights for improving bike-sharing operations
 
 ---
@@ -30,29 +31,23 @@ Bike-sharing systems offer a sustainable and efficient transportation alternativ
 
 ---
 
-## 🧹 Data Preprocessing
+## 📈 Exploratory Data Analysis (EDA) & Insights
 
-- Dropped correlated feature: `t2` (feels-like temperature)
-- Extracted hour, day, month, year from timestamp
-- One-hot encoded categorical variables
-- Explored outliers using Tukey’s method; retained them after validation
-- Verified no missing values
+During data preprocessing, we extracted temporal features (hour, day, month, year) and verified that there were no missing values. We retained outliers after validation as they represented genuine demand spikes (e.g., during summer).
 
----
+### Average Bike Demand Across the Day
+Bike rentals peak heavily during the morning commute (8 AM) and evening commute (5-6 PM).
+![Hourly Demand](assets/hourly_demand.png)
 
-## 📈 Exploratory Data Analysis (EDA)
-
-- Higher bike demand during warm and clear weather
-- Usage spikes during daytime and working hours
-- Seasonality and weekday/weekend trends observed
-- Weather and temperature are strongly correlated with demand
-- Feature engineering enhanced model insights
+### Bike Demand vs. Temperature
+Demand consistently increases as temperatures rise, peaking during warm, clear summer days before tapering off slightly in extreme heat.
+![Temperature vs Demand](assets/temp_demand.png)
 
 ---
 
-## 🤖 Machine Learning Models
+## 🤖 Machine Learning Models Comparison
 
-The following regression models were trained and evaluated:
+During the initial experimental phase, several regression models were trained and evaluated:
 
 | Model              | R² Score | RMSE    | MAE    |
 |-------------------|----------|---------|--------|
@@ -65,14 +60,30 @@ The following regression models were trained and evaluated:
 📌 **Best Model**: Gradient Boosting  
 💡 **Recommended Model for Deployment**: Random Forest (robust, scalable, interpretable)
 
+*(Note: The deployed Random Forest model in this pipeline achieved an even better R² Score of **0.957** after final pipeline optimizations).*
+
 ---
 
-## 🛠️ Hyperparameter Tuning
+## 🏗️ Project Architecture & Deployment
 
-- **AdaBoost** tuning with GridSearchCV
-  - Best parameters: `n_estimators=50`, `learning_rate=0.1`
-  - Improved R² to 0.5477, still underperformed compared to others
-- No further tuning applied to Gradient Boost or Random Forest to avoid overfitting
+This project was transformed from an experimental Jupyter Notebook into a professional, scalable ML repository.
+
+```
+├── Bicycle_sharing.ipynb       # Original Notebook with extensive EDA and model comparisons
+├── app.py                      # Premium Streamlit Dashboard UI
+├── train.py                    # Master orchestrator for the ML pipeline
+├── config/
+│   └── config.yaml             # Centralized hyperparameters and file paths
+├── src/
+│   ├── components/
+│   │   ├── data_ingestion.py     # Reads and splits data
+│   │   ├── data_transformation.py# Feature engineering & encoding
+│   │   └── model_trainer.py      # Random Forest model training & evaluation
+│   ├── exception.py            # Custom automated traceback handling
+│   └── logger.py               # Centralized logging configuration
+├── models/                     # Saved pkl artifacts
+└── dataset/                    # Raw and processed CSV data
+```
 
 ---
 
@@ -81,47 +92,64 @@ The following regression models were trained and evaluated:
 - **Temperature** is the most influential factor for demand, with demand peaking during warm but not extreme temperatures.
 - **Clear and dry weather** leads to higher bike usage; rainy or stormy conditions suppress it.
 - **Time-based features** (hour, month, season) significantly impact usage trends.
-- **Random Forest and Gradient Boosting** yielded the best predictive performance, with R² scores above 0.94.
-- Outliers in bike demand were valid (e.g., spikes in summer), so retained.
+- **Random Forest and Gradient Boosting** yielded the best predictive performance, massively outperforming linear models by capturing non-linear interactions without strict feature scaling.
+- Outliers in bike demand were valid (e.g., spikes in summer), so they were retained.
 
 ---
 
 ## 🧠 Conclusion
 
-This project demonstrates that machine learning techniques can effectively predict bike-sharing demand using environmental and temporal data. The Gradient Boosting model offered the highest accuracy, while Random Forest is favored for practical deployment due to its flexibility and ease of integration.
-
+This project demonstrates that machine learning techniques can effectively predict bike-sharing demand using environmental and temporal data. 
 Insights from this project can support operational decisions such as:
 - Predictive allocation of bikes
 - Infrastructure planning (e.g., high-demand zones)
 - Resource optimization during peak demand periods
 
-To build a more robust system, additional data like station-level availability, public event schedules, or traffic congestion levels could be integrated in future work.
-
 ---
 
 ## 🧩 Future Recommendations
 
-- Collect real-time station-level data to develop spatial rebalancing models
-- Implement a simple classification system (e.g., low, medium, high demand signals)
-- Extend the model with post-pandemic behavior data and public transport disruptions
-- Integrate the predictive model into a live dashboard for operations teams
+- Collect real-time station-level data to develop spatial rebalancing models.
+- Implement a simple classification system (e.g., low, medium, high demand signals).
+- Extend the model with post-pandemic behavior data and public transport disruptions.
+- Deploy the Streamlit dashboard to a cloud provider (AWS/GCP/Heroku) for public access.
+
+---
+
+## 💻 Running the App Locally
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/yourusername/London_Bike_Sharing_Project.git
+cd London_Bike_Sharing_Project
+```
+
+2. **Install Dependencies:**
+```bash
+pip install -r requirements.txt
+```
+
+3. **Train the Model:**
+*(Optional, if you want to regenerate the `.pkl` files).*
+```bash
+python train.py
+```
+
+4. **Launch the Dashboard:**
+```bash
+streamlit run app.py
+```
 
 ---
 
 ## 👨‍💻 Author
 
 **Himel Das**  
-*Aspiring Data Scientist | Passionate about ML, analytics, and solving real-world problems*
+*Aspiring Data Scientist | Passionate about ML, analytics, and solving real-world problems*  
 🔗 [LinkedIn Profile](https://www.linkedin.com/in/dashimel/)
----
-
-## 🔗 Dataset
-
-[https://www.kaggle.com/datasets/hmavrodiev/london-bike-sharing-dataset](https://www.kaggle.com/datasets/hmavrodiev/london-bike-sharing-dataset)
 
 ---
 
 ## 📄 License
 
 This project is for educational and portfolio purposes only. Not intended for commercial use.
-

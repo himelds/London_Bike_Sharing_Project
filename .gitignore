@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Logs
+logs/
+*.log
+
+# Generated data splits (keep the raw london_merged.csv but ignore generated splits)
+dataset/train.csv
+dataset/test.csv
+
+# Saved models (Optional: remove this if you want to push the trained model to GitHub)
+models/*.pkl
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/

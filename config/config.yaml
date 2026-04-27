@@ -1,0 +1,16 @@
+data:
+  raw_data_path: "dataset/london_merged.csv"
+  train_data_path: "dataset/train.csv"
+  test_data_path: "dataset/test.csv"
+
+model:
+  saved_model_path: "models/model.pkl"
+  preprocessor_path: "models/preprocessor.pkl"
+  
+hyperparameters:
+  random_forest:
+    n_estimators: 100
+    random_state: 42
+  gradient_boosting:
+    n_estimators: 100
+    random_state: 42
