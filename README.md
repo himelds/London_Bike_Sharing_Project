@@ -1,10 +1,12 @@
 # 🚴‍♂️ London Bike-Sharing Demand Prediction using Machine Learning
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://streamlit.io/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Open_App-FF4B4B.svg?logo=streamlit)](https://londonbikesharingproject.streamlit.app/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-0.24%2B-orange.svg)](https://scikit-learn.org/)
 
 This repository contains an End-to-End machine learning project focused on predicting demand for London's Santander bike-sharing system using real-world environmental and temporal data. It features a modular MLOps pipeline, centralized YAML configuration, and an interactive **Streamlit Dashboard** for real-time predictions.
+
+🚀 **Live Demo:** [https://londonbikesharingproject.streamlit.app/](https://londonbikesharingproject.streamlit.app/)
 
 ---
 
