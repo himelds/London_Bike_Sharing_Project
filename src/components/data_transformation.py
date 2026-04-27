@@ -79,10 +79,10 @@ class DataTransformation:
             # Ensure both train and test have same dummy columns by aligning them
             train_df, test_df = train_df.align(test_df, join='left', axis=1, fill_value=0)
 
-            X_train = train_df.drop(columns=[target_column_name], axis=1)
+            X_train = train_df.drop(columns=[target_column_name])
             y_train = train_df[target_column_name]
 
-            X_test = test_df.drop(columns=[target_column_name], axis=1)
+            X_test = test_df.drop(columns=[target_column_name])
             y_test = test_df[target_column_name]
 
             # Save the column names expected by the model for inference (used by the Web App)

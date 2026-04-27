@@ -4,7 +4,7 @@
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://streamlit.io/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-0.24%2B-orange.svg)](https://scikit-learn.org/)
 
-This repository contains an End-to-End machine learning project focused on predicting demand for London's Santander bike-sharing system using real-world environmental and temporal data. It features a modular MLOps pipeline, centralized YAML configuration, and an interactive **Premium Streamlit Dashboard** for real-time predictions.
+This repository contains an End-to-End machine learning project focused on predicting demand for London's Santander bike-sharing system using real-world environmental and temporal data. It features a modular MLOps pipeline, centralized YAML configuration, and an interactive **Streamlit Dashboard** for real-time predictions.
 
 ---
 
@@ -68,9 +68,12 @@ During the initial experimental phase, several regression models were trained an
 
 This project was transformed from an experimental Jupyter Notebook into a professional, scalable ML repository.
 
+- **Modular Design:** Data ingestion, transformation, and model training are separated into reusable components.
+- **Zero-Config Cloud Deployment:** The Streamlit app features an intelligent `load_assets()` function. If the 125MB model file is missing (to avoid GitHub's file size limits), the app automatically triggers the ML training pipeline in the cloud, generating the model on-the-fly in ~10 seconds. This allows for 1-click deployments to platforms like Streamlit Cloud!
+
 ```
 ├── Bicycle_sharing.ipynb       # Original Notebook with extensive EDA and model comparisons
-├── app.py                      # Premium Streamlit Dashboard UI
+├── app.py                      # Premium Streamlit Dashboard UI (with auto-training logic)
 ├── train.py                    # Master orchestrator for the ML pipeline
 ├── config/
 │   └── config.yaml             # Centralized hyperparameters and file paths
@@ -81,7 +84,7 @@ This project was transformed from an experimental Jupyter Notebook into a profes
 │   │   └── model_trainer.py      # Random Forest model training & evaluation
 │   ├── exception.py            # Custom automated traceback handling
 │   └── logger.py               # Centralized logging configuration
-├── models/                     # Saved pkl artifacts
+├── models/                     # Saved pkl artifacts (Ignored in Git)
 └── dataset/                    # Raw and processed CSV data
 ```
 
@@ -112,11 +115,10 @@ Insights from this project can support operational decisions such as:
 - Collect real-time station-level data to develop spatial rebalancing models.
 - Implement a simple classification system (e.g., low, medium, high demand signals).
 - Extend the model with post-pandemic behavior data and public transport disruptions.
-- Deploy the Streamlit dashboard to a cloud provider (AWS/GCP/Heroku) for public access.
 
 ---
 
-## 💻 Running the App Locally
+## 💻 Running the App Locally & Cloud Deployment
 
 1. **Clone the repository:**
 ```bash
@@ -129,13 +131,8 @@ cd London_Bike_Sharing_Project
 pip install -r requirements.txt
 ```
 
-3. **Train the Model:**
-*(Optional, if you want to regenerate the `.pkl` files).*
-```bash
-python train.py
-```
-
-4. **Launch the Dashboard:**
+3. **Launch the Dashboard (Auto-Training Enabled!):**
+You don't need to manually train the model! Just run the app. If the heavy model file is missing, the app will automatically train a fresh model for you on the fly in ~10 seconds before launching the UI.
 ```bash
 streamlit run app.py
 ```
